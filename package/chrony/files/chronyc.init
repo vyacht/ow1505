@@ -1,0 +1,22 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2006-2015 OpenWrt.org
+
+START=99
+USE_PROCD=0
+PROG=/usr/bin/chronyc
+
+start() {
+        [ -f /var/run/chronyd.pid ] && (
+
+                        CHRONY_KEY=$(awk '/^1 / { print $2; }' /etc/chrony/chrony.keys)
+
+                        # ... wait until a reference ID is found ...
+                        while chronyc tracking | grep 'Reference ID.*0.0.0.0' >/dev/null ; do sleep 5; done
+                        # ... and finally, adjust the time in a single step
+                        # and allow clients to access the server
+                        (
+                                echo password $CHRONY_KEY
+                                echo makestep
+                        ) | chronyc > /dev/null 2>&1
+                ) &
+}
