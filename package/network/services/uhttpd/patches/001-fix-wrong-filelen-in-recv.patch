@@ -1,0 +1,16 @@
+Fix found when uploading files.
+---
+ lua.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/lua.c	2016-01-29 12:54:03.698767806 +0100
++++ b/lua.c	2015-09-23 14:57:34.932732504 +0200
+@@ -72,6 +72,7 @@
+ 
+ 		luaL_addsize(&B, r);
+ 		data_len += r;
++		len -= r;
+ 		if (r != LUAL_BUFFERSIZE)
+ 			break;
+ 	}
+
