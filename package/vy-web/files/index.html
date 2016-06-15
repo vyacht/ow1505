@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="UTF-8">
+    
+  <title>
+  
+    vyacht wireless boat networks - open source marine hard and software.
+  
+  </title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="generator" content="Jekyll v3.1.0">
+  <link type="application/atom+xml" rel="alternate" href="feed.xml" />
+  <link rel="stylesheet" href="/css/screen.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/font-lato/css/font-lato.css">
+  <link rel="alternate" type="application/rss+xml" title="vyacht" href="//feed.xml">
+  <script src="/jquery-ui/js/jquery-1.10.2.js"></script>
+  <script src="/jquery-ui/js/jquery-ui-1.10.2.custom.js"></script>
+  <script src="/js/vy-spin.js"></script>
+  <script src="/js/vy-settings.js"></script>
+  <!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+
+
+  <body class="wrap">
+
+      <header role="banner">
+  <nav class="mobile-nav show-on-mobiles">
+    <ul>  <!-- too many limitations, just static -->
+          <li class="current">
+          <a href="/"><span class="show-a-wider-menu">Home</span>
+            <span class="hide-a-wider-menu"><i class="fa fa-home fa-2x"></i></span></a>
+          </li>
+          <li class="">
+          <a href="/instrumentpanel.html"><span class="show-a-wider-menu">Instruments</span>
+            <span class="hide-a-wider-menu">Inst</span></a>
+          </li>
+          <li class="">
+          <a href="/documentation.html">
+            <span class="show-a-wider-menu">Documentation</span>
+            <span class="hide-a-wider-menu">Docs</span></a>
+          </li>
+    </ul>
+
+  </nav>
+
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <h1>
+        <a href="/">
+          <span class="sr-only">Jekyll</span>
+          <img src="/img/vyacht-logo-04-249x115.png" width="249" height="115" alt="vyacht logo">
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav unit two-thirds hide-on-mobiles">
+
+    <ul>  <!-- for home/index page.baseurl ist empty/not set 
+              and thus equality to page.(base)url doesn't work -->
+          <li class="current">
+          <a href="/"><span class="hide-on-mobiles">Home</span>
+            <span class="show-on-mobiles"><i class="fa fa-home fa-2x"></i></span></a>
+          </li>
+          <li class="">
+          <a href="/instrumentpanel.html"><span class="hide-on-mobiles">Instruments</span>
+            <span class="show-on-mobiles">Inst</span></a>
+          </li>
+          <li class="">
+          <a href="/documentation.html">
+            <span class="show-a-wider-menu">Documentation</span>
+            <span class="hide-a-wider-menu">Docs</span></a>
+          </li>
+</ul>
+
+    </nav>
+  </div>
+</header>
+
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <section class="docs">
+   <div class="grid">
+     <div class="unit four-fiths">
+      <article>
+      <div class="mobile-side-scroller">
+          <table>
+                <thead><tr><th colspan="3">Info</th></tr></thead>
+                <tbody> 
+                <tr> 
+                    <th>Name</th>
+                    <td colspan=2><div id='Hostname'>...</div></td>
+                </tr>
+                <tr>
+                    <th>OpenWrt version</th>
+                    <td colspan=2><div id='OS_version'>...</div></td>
+                </tr>
+                <tr>
+                    <th>Firmware version</th>
+                    <td colspan=2><div id='Firmware_version'>...</div></td>
+                </tr>
+                <tr>
+                    <th>Time</th>
+                    <td colspan=2><div id='Time'>...</div></td>
+                </tr>
+                <tr>
+                    <th>Uptime</th>
+                    <td colspan=2><div id='Uptime'>...</div></td>
+                </tr>
+                </body>
+                <thead><tr><th colspan="3">NMEA Network</th></tr></thead>
+                <tbody> 
+                <tr>
+                    <th >NMEA TCP port</th>
+                    <td >
+			<form name="input" action="" method="post">
+			<input id='GpsPort' type="text" name="gpsport" value="">
+			<input type="button" value="Change" onClick="changeGpsPort(this.form.gpsport.value)">
+			</form> 
+		    </td>
+                    <td >
+			<div id='GpsStatus'>...</div>
+                    </td>
+                </tr>
+                <tr id='port_serial_1'>
+                    <th > NMEA 0183 1 in/out</th>
+                    <td >
+			<form name="input" action="" method="post">
+			<select name="nmea1speed" id="NMEA1Speed">
+			<option value="nmea0183:2400">2400</option>
+			<option value="nmea0183:4800">4800 (NMEA 0183)</option>
+			<option value="nmea0183:9600">9600</option>
+			<option value="nmea0183:38400">38.4k (AIS, NMEA)</option>
+			<option value="nmea0183:115200">115.2k</option>
+			</select>
+			<input type="button" value="Change" 
+			       onClick="changeNMEASpeed(1, this.form.nmea1speed.value); return false;">
+			</form>
+		    </td>
+                    <td >
+			<div id='NMEA1Status'>...</div>
+                    </td>
+                </tr>
+                <tr id='port_serial_2'>
+                    <th >Seatalk / NMEA 0183 in</th>
+                    <td >
+			<form name="input" action="" method="post">
+			<select name="nmea2speed" id="NMEA2Speed">
+			<option value="nmea0183:2400">2400</option>
+			<option value="nmea0183:4800">4800 (NMEA 0183)</option>
+			<option value="seatalk:4800">4800 (Seatalk)</option>
+			<option value="nmea0183:9600">9600</option>
+			<option value="nmea0183:38400">38.4k (AIS, NMEA)</option>
+			<option value="nmea0183:115200">115.2k</option>
+			</select>
+			<input type="button" value="Change" 
+			       onClick="changeNMEASpeed(2, this.form.nmea2speed.value); return false;">
+			</form>
+			<div id='NMEA1Waiter'></div>
+		    </td>
+                    <td >
+			<div id='NMEA2Status'>...</div>
+                    </td>
+                </tr>
+                <tr id='port_serial_3'>
+                    <th >NMEA 0183 3 in</th>
+                    <td >
+			<form name="input" action="" method="post">
+			<select name="nmea3speed" id="NMEA3Speed">
+			<option value="nmea0183:2400">2400</option>
+			<option value="nmea0183:4800">4800 (NMEA 0183)</option>
+			<option value="nmea0183:9600">9600</option>
+			<option value="nmea0183:38400">38.4k (AIS, NMEA)</option>
+			<option value="nmea0183:115200">115.2k</option>
+			</select>
+			<input type="button" value="Change" 
+			       onClick="changeNMEASpeed(3, this.form.nmea3speed.value); return false;">
+			</form>
+			<div id='NMEA1Waiter'></div>
+		    </td>
+                    <td >
+			<div id='NMEA3Status'>...</div>
+                    </td>
+                </tr>
+                <tr id='port_serial_4'>
+                    <th >NMEA 0183 4 in</th>
+                    <td >
+			<form name="input" action="" method="post">
+			<select name="nmea4speed" id="NMEA4Speed">
+			<option value="nmea0183:2400">2400</option>
+			<option value="nmea0183:4800">4800 (NMEA 0183)</option>
+			<option value="nmea0183:9600">9600</option>
+			<option value="nmea0183:38400">38.4k (AIS, NMEA)</option>
+			<option value="nmea0183:115200">115.2k</option>
+			</select>
+			<input type="button" value="Change" 
+			       onClick="changeNMEASpeed(4, this.form.nmea4speed.value); return false;">
+			</form>
+			<div id='NMEA1Waiter'></div>
+		    </td>
+                    <td >
+			<div id='NMEA4Status'>...</div>
+                    </td>
+                </tr>
+                <tr id='port_n2k'>
+                    <th>NMEA 2000</th>
+	            <td 
+		    </td>
+                    <td >
+			<div id='NMEA2kStatus'>...</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th >Streamed data</th>
+                    <td >
+			<form name="input" action="" method="post">
+			<input id='GpsFeed' type="text" name="gpsfeed" value="">
+			<input type="button" value="Change" onClick="changeGpsFeed(this.form.gpsfeed.value)">
+			</form> 
+		    </td>
+                    <td >
+			<div id='GpsOtherPortStatus'>...</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th >UDP broadcast</th>
+                    <td >
+			<form name="input" action="" method="post">
+			<input id='UdpBroadcast' type="text" name="udpbroadcast" value="">
+			<input type="button" value="Change" onClick="changeUdpBroadcast(this.form.udpbroadcast.value)">
+			</form> 
+		    </td>
+                    <td >
+			<div id='UdpBroadcastStatus'>...</div>
+                    </td>
+                </tr>
+                </body>
+                <thead><tr><th colspan="3">TCP/IP Network</th></tr></thead>
+                <tbody> 
+                <tr>
+                    <th >WiFi</th>
+                    <td >
+			<form name="input" action="" method="post">
+			<input id="wifi_on" type="radio" name="wifitoggle" value="on" onClick="toggleWifi()">On
+			<input id="wifi_off" type="radio" name="wifitoggle" value="off" onClick="toggleWifi()">Off<br>
+			<input id='WifiIP' type="text" name="wifiip" value="">
+        		<input type="button" value="Change" 
+			       onClick="changeWifiIP(this.form.wifiip.value); return false;">
+			</form> 
+		    </td>
+                    <td>
+			<div id='WifiStatus'>...</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>WiFi password</th>
+                    <td>
+			<form name="input" action="" method="post">
+			<input id='WifiPwd' type="password" name="wifipwd" value="" class="showpassword">
+        		<input type="button" value="Change"
+        		       onClick="changeWifiPwd(this.form.wifipwd.value); return false;">
+			<div id="showpasswordcb-placeholder"/>
+			</form> 
+		    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Ethernet 1</th>
+                    <td>
+			<form id="eth1form" name="input" action="" method="post">
+                        <div id="eth1_lan_wan" style="display: none">
+  			  <input id="eth1_wan" type="radio" name="wan" value="wan" onClick="toggleLANWAN('Eth1IP')">WAN (Internet)
+			  <input id="eth1_lan" type="radio" name="wan" value="lan" onClick="toggleLANWAN('Eth1IP')">LAN<br>
+                        </div>
+  			<input id='Eth1IP' type="text" name="eth1ip" value="">
+        		<input type="button" value="Change" 
+			       onClick="changeEthIP('eth00', this.form.eth1ip.value); return false;">
+			</form> 
+		    </td>
+                    <td>
+			<div id='Eth1Status'>...</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Ethernet 2</th>
+                    <td>
+			<form id="eth2form" name="input" action="" method="post">
+                        <div id="eth2_lan_wan" style="display: none">
+			  <input id="eth2_wan" type="radio" name="wan" value="wan" onClick="toggleLANWAN('Eth2IP')">WAN (Internet)
+			  <input id="eth2_lan" type="radio" name="wan" value="lan" onClick="toggleLANWAN('Eth2IP')">LAN<br>
+                        </div>
+  			<input id='Eth2IP' type="text" name="eth2ip" value="">
+        		<input type="button" value="Change" 
+			       onClick="changeEthIP('eth01', this.form.eth2ip.value); return false;">
+			</form> 
+		    </td>
+                    <td>
+			<div id='Eth2Status'>...</div>
+                    </td>
+                </tr>
+                
+                </body>
+                <thead><tr><th colspan="3">Upgrade</th></tr></thead>
+                <tbody> 
+                
+                <tr>
+                    <th>Update</th>
+                    <td>
+                      <form id="fileUploadForm" enctype="multipart/form-data">
+                        <input name="file" type="file" />
+                        <input id="fileUpload" type="button" value="Upgrade"/>
+                      </form>
+		                </td>
+                    <td>
+                    </td>
+                </tr>
+                
+            </table>
+</div>
+</article>
+
+            <!-- all this formatting should go to a style sheet - well, luci2 has it -->
+            <div class="mymodal" id= "upgrade-dialog" style="display: none; z-index: 1999; position: fixed; top: 0px; right: 0px; left: 0px; bottom: 0px">
+            <div class="mymodaldialog" style="                                                                     
+                                left: 50%; right: auto; width: 450px;                                                  
+                                margin-left: auto;                                        
+                                margin-right: auto;                  
+                                padding-top: 30px;                                                                                                                
+                                padding-bottom: 30px;"                        
+                                title="Upgrade">                             
+            <div style="background-color: #333; z-index: 2000; border-radius: 10px; padding: 20px 20px 20px 20px"> 
+                <div style="border-bottom: 1px solid; color: #accd1b;"><h2>Going to upload and upgrade now!</h2></div> 
+                    <p>Please make sure to have a stable power supply when upgrading. <br>        
+                      <b>Do not power off during the upgrade!</b><br>                 
+                      Wait a few minutes until you try to reconnect. It might be necessary to renew the address of your computer to reach the device again, depend
+                      <progress style="display: none; width: 100%"></progress>                                  
+                    <form id="upgrade-confirm" enctype="multipart/form-data">                                 
+                        <input style="color:#444;" type="button" value="Upgrade" onClick="uploadAndUpgrade();">
+                        <input style="color:#444;" type="button" value="Cancel" onClick="$('#upgrade-dialog').hide();">
+                    </form>                                                     
+                    </div>                                                                                   
+                    </div>                                                          
+                </div>                 
+
+</div>
+</div>
+</div>
+</section>
+
+
+	    <script type="text/javascript">
+		$(function(){
+		        $(".showpassword").each(function(index,input) {
+                	var $input = $(input);
+			var $placeholder = $('#showpasswordcb-placeholder');
+	                $('<label class="showpasswordlabel"/>').append(
+        	                $("<input type='checkbox' class='showpasswordcheckbox' />").click(function() {
+                	                var change = $(this).is(":checked") ? "text" : "password";
+                        	        var rep = $("<input type='" + change + "' />")
+                                	        .attr("id", $input.attr("id"))
+                                        	.attr("name", $input.attr("name"))
+	                                        .attr('class', $input.attr('class'))
+        	                                .val($input.val())
+                	                        .insertBefore($input);
+                        	        $input.remove();
+                                	$input = rep;
+	                         })
+        	        ).append($("<span/>").text("Show password")).insertAfter($placeholder);
+        		});
+		});
+	   </script>
+<script type="text/javascript">
+  GetStatus();
+  $('progress').attr({value:0, max:100}); 
+</script>
+
+      </div>
+    </div>
+
+    <footer role="contentinfo">
+  <div class="grid">
+    <div class="unit two-thirds center-on-mobiles">
+      <p>The contents of this website are &copy;&nbsp;2016&nbsp;
+        <a href="/">vyacht AB</a>.</p>
+    </div>
+  </div>
+</footer>
+
+
+
+  </body>
+
+</html>
